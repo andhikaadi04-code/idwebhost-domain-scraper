@@ -1,0 +1,55 @@
+# Daftar nama kandidat (satu per baris, tanpa TLD).
+# Baris diawali # diabaikan. Edit bebas — tambah nama sendiri di sini.
+# Scraper mengecek tiap nama untuk .my.id / .web.id / .biz.id
+
+# --- pendek & brandable ---
+kirana
+laskar
+taksu
+wijaya
+satria
+nagari
+cakra
+bayu
+sagara
+langit
+bumi
+tunas
+pijar
+sinar
+cahaya
+lentera
+titian
+jejak
+rona
+suara
+gema
+irama
+nada
+warna
+rasa
+karsa
+cipta
+daya
+guna
+maju
+muda
+baru
+
+# --- nuansa tekno/bisnis ---
+teknos
+digita
+webku
+situsku
+tokoku
+usahaku
+niagaku
+dagangku
+jasaku
+karyaku
+kodeku
+dataku
+serverku
+cloudku
+hostku
+domainku

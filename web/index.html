@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cek Domain Gratis IDwebhost</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 16px; background: #f4f6fb; color: #1c2333; }
+  .wrap { max-width: 640px; margin: 0 auto; }
+  h1 { font-size: 1.35rem; margin: 0 0 4px; }
+  p.sub { color: #5b6478; font-size: .9rem; margin: 0 0 16px; }
+  .card { background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(20,30,60,.08); }
+  label { font-weight: 600; font-size: .9rem; display: block; margin-bottom: 6px; }
+  textarea { width: 100%; min-height: 110px; border: 1px solid #d4dae6; border-radius: 8px; padding: 10px; font-size: .95rem; resize: vertical; }
+  .tlds { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0; }
+  .tlds label { font-weight: 500; background: #eef1f7; padding: 8px 12px; border-radius: 20px; font-size: .9rem; cursor: pointer; margin: 0; }
+  .tlds input { accent-color: #2563eb; }
+  button.go { width: 100%; background: #2563eb; color: #fff; border: 0; border-radius: 10px; padding: 13px; font-size: 1rem; font-weight: 700; cursor: pointer; }
+  button.go:disabled { background: #9db4e8; cursor: wait; }
+  .progress { font-size: .85rem; color: #5b6478; margin: 10px 0 0; }
+  .bar { height: 8px; background: #e5e9f2; border-radius: 6px; overflow: hidden; margin-top: 6px; }
+  .bar > div { height: 100%; background: #2563eb; width: 0%; transition: width .2s; }
+  .res { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid #eef1f7; font-size: .92rem; }
+  .res:last-child { border-bottom: 0; }
+  .badge { font-size: .75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
+  .ok { background: #dcfce7; color: #15803d; }
+  .no { background: #f1f2f6; color: #8a93a8; }
+  .err { background: #fef3c7; color: #b45309; }
+  .claim { display: inline-block; margin-top: 6px; font-size: .85rem; color: #2563eb; text-decoration: none; font-weight: 600; word-break: break-all; }
+  .dom { font-weight: 600; }
+  ol.steps { margin: 8px 0 0; padding-left: 20px; font-size: .9rem; color: #39415a; }
+  ol.steps li { margin-bottom: 6px; }
+  code { background: #eef1f7; padding: 2px 7px; border-radius: 6px; font-weight: 700; }
+  .note { font-size: .82rem; color: #7a839b; margin-top: 10px; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🎯 Cek Domain Gratis IDwebhost</h1>
+  <p class="sub">Cek ketersediaan .my.id / .web.id / .biz.id langsung dari browser kamu. Yang tersedia dapat link klaim.</p>
+
+  <div class="card">
+    <label for="names">Nama domain (satu per baris, tanpa TLD)</label>
+    <textarea id="names" placeholder="contoh:&#10;tokoku&#10;brandku&#10;usahaku">tokoku
+brandku
+usahaku</textarea>
+    <div class="tlds">
+      <label><input type="checkbox" class="tld" value="my.id" checked> .my.id</label>
+      <label><input type="checkbox" class="tld" value="web.id" checked> .web.id</label>
+      <label><input type="checkbox" class="tld" value="biz.id" checked> .biz.id</label>
+    </div>
+    <button class="go" id="go">Cek Ketersediaan</button>
+    <div class="progress hidden" id="progWrap"><span id="progText"></span><div class="bar"><div id="barFill"></div></div></div>
+  </div>
+
+  <div class="card hidden" id="resCard">
+    <label>Hasil <span id="resCount" style="font-weight:400;color:#5b6478"></span></label>
+    <div id="results"></div>
+    <p class="note">Pengecekan via DNS publik: belum terdaftar = tersedia. Kebenaran final tetap di halaman IDwebhost saat klaim.</p>
+  </div>
+
+  <div class="card">
+    <label>📋 Cara klaim (manual)</label>
+    <ol class="steps">
+      <li>Buka link klaim pada domain yang tersedia.</li>
+      <li><b>Uncheck</b> upsell yang otomatis tercentang: paket hosting, addon <i>SSL Murah</i>, <i>Daily Backup</i>.</li>
+      <li>Untuk <b>.my.id: TIDAK perlu kupon</b> — sudah berlabel <i>Gratis</i>. (Kupon <code>mAts2Mey</code> sudah expired per 2026-10-04.)</li>
+      <li>Login akun IDwebhost (atau buat baru).</li>
+      <li>Pastikan <b>TOTAL = Rp0</b>, centang persetujuan, klik <i>Bayar Sekarang</i>.</li>
+    </ol>
+    <p class="note">Terverifikasi 2026-10-04: .my.id = Gratis tanpa kupon, .web.id = Rp3.000. Harga bisa berubah — selalu cek total Rp0 di checkout.</p>
+  </div>
+</div>
+
+<script>
+const DOH = [
+  'https://cloudflare-dns.com/dns-query',
+  'https://dns.google/resolve'
+];
+
+async function checkDomain(domain) {
+  const q = '?name=' + encodeURIComponent(domain) + '&type=NS';
+  let lastErr = '';
+  for (const base of DOH) {
+    try {
+      const r = await fetch(base + q, { headers: { 'accept': 'application/dns-json' } });
+      if (!r.ok) { lastErr = 'HTTP ' + r.status; continue; }
+      const d = await r.json();
+      if (d.Status === 3) return 'available';                    // NXDOMAIN
+      if (d.Status === 0) return 'taken';                       // ada / terdelegasi
+      lastErr = 'Status ' + d.Status;
+    } catch (e) { lastErr = 'network'; }
+  }
+  return 'unknown:' + lastErr;
+}
+
+const validName = n => /^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/i.test(n);
+
+document.getElementById('go').addEventListener('click', async () => {
+  const btn = document.getElementById('go');
+  const raw = document.getElementById('names').value.split('\n')
+    .map(s => s.trim().toLowerCase().split('.')[0])
+    .filter(s => s && validName(s));
+  const names = [...new Set(raw)];
+  const tlds = [...document.querySelectorAll('.tld:checked')].map(c => c.value);
+  if (!names.length || !tlds.length) { alert('Isi minimal satu nama dan satu TLD.'); return; }
+
+  const jobs = [];
+  names.forEach(n => tlds.forEach(t => jobs.push(n + '.' + t)));
+  const box = document.getElementById('results');
+  const card = document.getElementById('resCard');
+  const progWrap = document.getElementById('progWrap');
+  box.innerHTML = ''; card.classList.remove('hidden'); progWrap.classList.remove('hidden');
+  btn.disabled = true;
+
+  let done = 0, avail = 0;
+  const update = () => {
+    document.getElementById('progText').textContent = `Mengecek ${done}/${jobs.length}… (${avail} tersedia)`;
+    document.getElementById('barFill').style.width = (done / jobs.length * 100) + '%';
+    document.getElementById('resCount').textContent = `— ${avail} tersedia`;
+  };
+  update();
+
+  const CONC = 6;
+  async function worker() {
+    while (jobs.length) {
+      const domain = jobs.shift();
+      const st = await checkDomain(domain);
+      done++;
+      const row = document.createElement('div');
+      row.className = 'res';
+      if (st === 'available') {
+        avail++;
+        row.innerHTML = `<div><span class="dom">${domain}</span><br><a class="claim" target="_blank" rel="noopener" href="https://order.idwebhost.com/domain/${domain}">🔗 Klaim di IDwebhost →</a></div><span class="badge ok">TERSEDIA</span>`;
+        box.prepend(row);
+      } else if (st === 'taken') {
+        row.innerHTML = `<span class="dom" style="color:#9aa2b8">${domain}</span><span class="badge no">Terpakai</span>`;
+        box.append(row);
+      } else {
+        row.innerHTML = `<span class="dom" style="color:#9aa2b8">${domain}</span><span class="badge err">Gagal dicek</span>`;
+        box.append(row);
+      }
+      update();
+      await new Promise(r => setTimeout(r, 150));
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(CONC, jobs.length) }, worker));
+  document.getElementById('progText').textContent =
+    `Selesai: ${avail} dari ${done} domain tersedia.`;
+  btn.disabled = false;
+});
+</script>
+</body>
+</html>
