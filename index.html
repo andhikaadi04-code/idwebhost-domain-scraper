@@ -4,51 +4,109 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cek Domain Gratis IDwebhost</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; }
-  body { font-family: -apple-system, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 16px; background: #f4f6fb; color: #1c2333; }
-  .wrap { max-width: 640px; margin: 0 auto; }
-  h1 { font-size: 1.35rem; margin: 0 0 4px; }
-  p.sub { color: #5b6478; font-size: .9rem; margin: 0 0 16px; }
-  .card { background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(20,30,60,.08); }
-  label { font-weight: 600; font-size: .9rem; display: block; margin-bottom: 6px; }
-  textarea { width: 100%; min-height: 110px; border: 1px solid #d4dae6; border-radius: 8px; padding: 10px; font-size: .95rem; resize: vertical; }
-  .tlds { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0; }
-  .tlds label { font-weight: 500; background: #eef1f7; padding: 8px 12px; border-radius: 20px; font-size: .9rem; cursor: pointer; margin: 0; }
-  .tlds input { accent-color: #2563eb; }
-  button.go { width: 100%; background: #2563eb; color: #fff; border: 0; border-radius: 10px; padding: 13px; font-size: 1rem; font-weight: 700; cursor: pointer; }
-  button.go:disabled { background: #9db4e8; cursor: wait; }
-  .progress { font-size: .85rem; color: #5b6478; margin: 10px 0 0; }
-  .bar { height: 8px; background: #e5e9f2; border-radius: 6px; overflow: hidden; margin-top: 6px; }
-  .bar > div { height: 100%; background: #2563eb; width: 0%; transition: width .2s; }
-  .res { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid #eef1f7; font-size: .92rem; }
-  .res:last-child { border-bottom: 0; }
-  .badge { font-size: .75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
-  .ok { background: #dcfce7; color: #15803d; }
-  .no { background: #f1f2f6; color: #8a93a8; }
-  .err { background: #fef3c7; color: #b45309; }
-  .claim { display: inline-block; margin-top: 6px; font-size: .85rem; color: #2563eb; text-decoration: none; font-weight: 600; word-break: break-all; }
-  .dom { font-weight: 600; }
-  ol.steps { margin: 8px 0 0; padding-left: 20px; font-size: .9rem; color: #39415a; }
-  ol.steps li { margin-bottom: 6px; }
-  code { background: #eef1f7; padding: 2px 7px; border-radius: 6px; font-weight: 700; }
-  .note { font-size: .82rem; color: #7a839b; margin-top: 10px; }
-  .hidden { display: none; }
-  .tools { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 4px; }
-  .tools button { flex: 1; min-width: 140px; background: #eef1f7; color: #1c2333; border: 0; border-radius: 8px; padding: 10px; font-size: .88rem; font-weight: 600; cursor: pointer; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Plus Jakarta Sans', -apple-system, 'Segoe UI', Roboto, sans-serif; background: #f4f2ff; color: #1e1b33; min-height: 100vh; }
+
+  .hero { background: linear-gradient(135deg, #1e1b4b 0%, #4c1d95 45%, #7c3aed 75%, #a855f7 100%);
+    color: #fff; padding: 40px 20px 34px; position: relative; overflow: hidden; text-align: center; }
+  .hero::before, .hero::after { content: ''; position: absolute; border-radius: 50%; filter: blur(60px); opacity: .45; }
+  .hero::before { width: 260px; height: 260px; background: #ec4899; top: -80px; left: -60px; }
+  .hero::after { width: 220px; height: 220px; background: #22d3ee; bottom: -70px; right: -50px; }
+  .hero-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+  .hero h1 { font-size: 1.7rem; font-weight: 800; letter-spacing: -.02em; }
+  .hero p.sub { color: #ddd6fe; font-size: .95rem; margin-top: 8px; }
+
+  .coupon { display: inline-flex; align-items: center; gap: 10px; margin-top: 18px;
+    background: rgba(255,255,255,.14); border: 1.5px dashed rgba(255,255,255,.55);
+    border-radius: 14px; padding: 10px 14px; backdrop-filter: blur(6px); flex-wrap: wrap; justify-content: center; }
+  .coupon .lbl { font-size: .8rem; color: #ede9fe; font-weight: 600; }
+  .coupon code { background: #fff; color: #6d28d9; font-weight: 800; font-size: 1rem;
+    padding: 6px 12px; border-radius: 8px; letter-spacing: .04em; cursor: pointer; }
+  .coupon .exp { font-size: .75rem; color: #fbcfe8; font-weight: 600; }
+
+  .wrap { max-width: 640px; margin: -22px auto 0; padding: 0 16px 40px; position: relative; z-index: 2; }
+  .card { background: #fff; border-radius: 18px; padding: 20px; margin-bottom: 14px;
+    box-shadow: 0 8px 28px rgba(76,29,149,.10); border: 1px solid #ede9fe; }
+  label.ttl { font-weight: 700; font-size: .95rem; display: block; margin-bottom: 8px; }
+  textarea { width: 100%; min-height: 110px; border: 2px solid #e5e0fa; border-radius: 12px;
+    padding: 12px; font-size: .95rem; font-family: inherit; resize: vertical; background: #faf9ff; color: #1e1b33; }
+  textarea:focus { outline: none; border-color: #7c3aed; background: #fff; }
+
+  .tlds { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0; }
+  .tlds label { font-weight: 600; background: linear-gradient(180deg, #f5f3ff, #ede9fe);
+    border: 2px solid #e5e0fa; padding: 9px 16px; border-radius: 999px; font-size: .9rem;
+    cursor: pointer; margin: 0; transition: all .15s; }
+  .tlds label:has(input:checked) { background: linear-gradient(135deg, #7c3aed, #a855f7);
+    color: #fff; border-color: #7c3aed; box-shadow: 0 4px 14px rgba(124,58,237,.35); }
+  .tlds input { accent-color: #7c3aed; margin-right: 4px; }
+
+  button.go { width: 100%; background: linear-gradient(135deg, #7c3aed, #6d28d9); color: #fff;
+    border: 0; border-radius: 14px; padding: 15px; font-size: 1.02rem; font-weight: 800;
+    cursor: pointer; font-family: inherit; box-shadow: 0 8px 20px rgba(124,58,237,.4); transition: transform .12s; }
+  button.go:active { transform: scale(.98); }
+  button.go:disabled { background: #b9a8e8; cursor: wait; box-shadow: none; }
+
+  .progress { font-size: .85rem; color: #6d6a8a; margin: 12px 0 0; font-weight: 600; }
+  .bar { height: 10px; background: #ede9fe; border-radius: 8px; overflow: hidden; margin-top: 8px; }
+  .bar > div { height: 100%; background: linear-gradient(90deg, #7c3aed, #ec4899); width: 0%; transition: width .25s; border-radius: 8px; }
+
+  .tools { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 6px; }
+  .tools button { flex: 1; min-width: 130px; background: #f5f3ff; color: #4c1d95; border: 2px solid #ede9fe;
+    border-radius: 12px; padding: 10px; font-size: .87rem; font-weight: 700; cursor: pointer; font-family: inherit; }
   .tools button:disabled { opacity: .45; cursor: default; }
-  .tools button.on { background: #2563eb; color: #fff; }
-  .price { font-size: .75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; white-space: nowrap; background: #e0e7ff; color: #3730a3; margin-left: 6px; }
+  .tools button.on { background: linear-gradient(135deg, #7c3aed, #6d28d9); color: #fff; border-color: #7c3aed; }
+
+  .res { display: flex; justify-content: space-between; align-items: center; gap: 10px;
+    padding: 14px 12px; border-radius: 14px; margin: 8px 0; font-size: .92rem;
+    background: #faf9ff; border: 1.5px solid #f0edfd; }
+  .res.hit { background: linear-gradient(180deg, #f0fdf4, #ecfdf5); border-color: #bbf7d0;
+    box-shadow: 0 4px 14px rgba(22,163,74,.12); }
+  .badge { font-size: .72rem; font-weight: 800; padding: 6px 12px; border-radius: 999px; white-space: nowrap; letter-spacing: .03em; }
+  .ok { background: #16a34a; color: #fff; box-shadow: 0 3px 10px rgba(22,163,74,.35); }
+  .no { background: #e9e7f5; color: #8a87a8; }
+  .err { background: #fef3c7; color: #b45309; }
+  .claim { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; font-size: .85rem;
+    color: #fff; background: linear-gradient(135deg, #2563eb, #1d4ed8); text-decoration: none;
+    font-weight: 700; padding: 8px 14px; border-radius: 999px; box-shadow: 0 4px 12px rgba(37,99,235,.3); }
+  .dom { font-weight: 700; font-size: 1rem; }
+  .price { font-size: .75rem; font-weight: 800; padding: 5px 11px; border-radius: 999px;
+    white-space: nowrap; background: linear-gradient(135deg, #fde68a, #fbbf24); color: #78350f; margin-left: 8px; }
+  .price.free { background: linear-gradient(135deg, #86efac, #4ade80); color: #14532d; }
   .badges { display: flex; gap: 4px; align-items: center; }
+
+  ol.steps { margin: 10px 0 0; padding-left: 22px; font-size: .9rem; color: #3d3a5c; }
+  ol.steps li { margin-bottom: 8px; line-height: 1.55; }
+  code.kupon { background: #ede9fe; color: #6d28d9; padding: 3px 9px; border-radius: 7px;
+    font-weight: 800; cursor: pointer; border: 1px dashed #a78bfa; }
+  .note { font-size: .82rem; color: #8a87a8; margin-top: 12px; line-height: 1.55; }
+  .hidden { display: none; }
+  .alert-ok { background: linear-gradient(135deg, #ecfdf5, #d1fae5); border: 1.5px solid #6ee7b7;
+    border-radius: 14px; padding: 12px 16px; font-size: .87rem; color: #065f46; font-weight: 600; margin-bottom: 14px; }
+  .foot { text-align: center; color: #a5a1c5; font-size: .78rem; margin-top: 18px; }
+  .foot a { color: #7c3aed; font-weight: 700; text-decoration: none; }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>🎯 Cek Domain Gratis IDwebhost</h1>
-  <p class="sub">Cek ketersediaan .my.id / .web.id / .biz.id langsung dari browser kamu. Yang tersedia dapat link klaim.</p>
 
+<div class="hero">
+  <div class="hero-inner">
+    <h1>🎯 Cek Domain Gratis IDwebhost</h1>
+    <p class="sub">Cek ketersediaan <b>.my.id</b> / <b>.web.id</b> / <b>.biz.id</b> langsung dari browser kamu. Yang tersedia dapat link klaim gratis.</p>
+    <div class="coupon" title="Klik kode untuk menyalin">
+      <span class="lbl">🎟️ Kupon gratis:</span>
+      <code id="couponCode">OktW-o2IdH</code>
+      <span class="exp">⏳ berlaku 2–4 Okt 2026</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
   <div class="card">
-    <label for="names">Nama domain (satu per baris, tanpa TLD)</label>
+    <div class="alert-ok">✅ Terbukti berhasil: <b>aidika.my.id</b> diklaim <b>Rp0</b> (04/10/2026) — tagihan Lunas, domain aktif 1 tahun.</div>
+    <label class="ttl" for="names">Nama domain <span style="font-weight:400;color:#8a87a8">(satu per baris, tanpa TLD)</span></label>
     <textarea id="names" placeholder="contoh:&#10;tokoku&#10;brandku&#10;usahaku">tokoku
 brandku
 usahaku</textarea>
@@ -57,12 +115,12 @@ usahaku</textarea>
       <label><input type="checkbox" class="tld" value="web.id" checked> .web.id</label>
       <label><input type="checkbox" class="tld" value="biz.id" checked> .biz.id</label>
     </div>
-    <button class="go" id="go">Cek Ketersediaan</button>
+    <button class="go" id="go">🔍 Cek Ketersediaan</button>
     <div class="progress hidden" id="progWrap"><span id="progText"></span><div class="bar"><div id="barFill"></div></div></div>
   </div>
 
   <div class="card hidden" id="resCard">
-    <label>Hasil <span id="resCount" style="font-weight:400;color:#5b6478"></span></label>
+    <label class="ttl">Hasil <span id="resCount" style="font-weight:400;color:#8a87a8"></span></label>
     <div class="tools">
       <button id="filterBtn">Hanya yang tersedia: OFF</button>
       <button id="copyBtn">📋 Salin daftar</button>
@@ -73,16 +131,18 @@ usahaku</textarea>
   </div>
 
   <div class="card">
-    <label>📋 Cara klaim (manual)</label>
+    <label class="ttl">📋 Cara klaim gratis <span style="font-weight:400;color:#8a87a8">(metode terverifikasi)</span></label>
     <ol class="steps">
-      <li>Buka link klaim pada domain yang tersedia.</li>
-      <li><b>Uncheck</b> upsell yang otomatis tercentang: paket hosting, addon <i>SSL Murah</i>, <i>Daily Backup</i>.</li>
-      <li>Untuk <b>.my.id: TIDAK perlu kupon</b> — sudah berlabel <i>Gratis</i>. (Kupon <code>mAts2Mey</code> sudah expired per 2026-10-04.)</li>
-      <li>Login akun IDwebhost (atau buat baru).</li>
-      <li>Pastikan <b>TOTAL = Rp0</b>, centang persetujuan, klik <i>Bayar Sekarang</i>.</li>
+      <li>Buka halaman klaim: <a href="https://order.idwebhost.com/domain-gratis" target="_blank" rel="noopener" style="color:#7c3aed;font-weight:700">order.idwebhost.com/domain-gratis</a></li>
+      <li>Ketik nama domain yang tersedia, pastikan kupon <code class="kupon" id="couponCode2">OktW-o2IdH</code> terpasang (klik untuk salin).</li>
+      <li>Daftar / login dengan akun Google, lalu klik <b>Klaim Sekarang</b>.</li>
+      <li>Pastikan tagihan <b>TOTAL = Rp0</b> dan status <b>Lunas</b> — domain aktif 1 tahun.</li>
+      <li>Catatan: biaya <b>perpanjangan</b> tahun berikutnya ±Rp22.000/tahun untuk .my.id.</li>
     </ol>
-    <p class="note">Terverifikasi 2026-10-04: .my.id = Gratis tanpa kupon, .web.id = Rp3.000. Harga bisa berubah — selalu cek total Rp0 di checkout.</p>
+    <p class="note">Terverifikasi 2026-10-04 oleh pemilik situs: kupon <b>OktW-o2IdH</b> berlaku untuk klaim gratis .my.id / .web.id / .biz.id selama 1 tahun pada periode 2–4 Oktober 2026. Harga & promo bisa berubah sewaktu-waktu.</p>
   </div>
+
+  <p class="foot">Dibuat dengan 💜 untuk pemburu domain gratis · <a href="https://dikadev.web.id" target="_blank" rel="noopener">DikaDev</a></p>
 </div>
 
 <script>
@@ -99,8 +159,8 @@ async function checkDomain(domain) {
       const r = await fetch(base + q, { headers: { 'accept': 'application/dns-json' } });
       if (!r.ok) { lastErr = 'HTTP ' + r.status; continue; }
       const d = await r.json();
-      if (d.Status === 3) return 'available';                    // NXDOMAIN
-      if (d.Status === 0) return 'taken';                       // ada / terdelegasi
+      if (d.Status === 3) return 'available';
+      if (d.Status === 0) return 'taken';
       lastErr = 'Status ' + d.Status;
     } catch (e) { lastErr = 'network'; }
   }
@@ -109,11 +169,22 @@ async function checkDomain(domain) {
 
 const validName = n => /^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/i.test(n);
 
-// Harga promo per TLD (terverifikasi 2026-10-04, bisa berubah)
-const PRICE = { 'my.id': 'Rp0', 'web.id': 'Rp3.000', 'biz.id': 'cek situs' };
+// Harga promo per TLD selama periode kupon (terverifikasi 2026-10-04, bisa berubah)
+const PRICE = { 'my.id': 'Rp0', 'web.id': 'Rp0', 'biz.id': 'Rp0' };
+const CLAIM_URL = 'https://order.idwebhost.com/domain-gratis';
 
-let allResults = [];   // {domain, tld, status}
+let allResults = [];
 let filterAvail = false;
+
+function copyCoupon(el) {
+  navigator.clipboard.writeText('OktW-o2IdH').then(() => {
+    const old = el.textContent;
+    el.textContent = '✅ Tersalin!';
+    setTimeout(() => el.textContent = old, 1500);
+  });
+}
+document.getElementById('couponCode').addEventListener('click', e => copyCoupon(e.target));
+document.getElementById('couponCode2').addEventListener('click', e => copyCoupon(e.target));
 
 function renderResults() {
   const box = document.getElementById('results');
@@ -121,15 +192,17 @@ function renderResults() {
   const list = filterAvail ? allResults.filter(r => r.status === 'available') : allResults;
   for (const r of list) {
     const row = document.createElement('div');
-    row.className = 'res';
     if (r.status === 'available') {
-      row.innerHTML = `<div><span class="dom">${r.domain}</span><span class="price">${PRICE[r.tld] || ''}</span><br><a class="claim" target="_blank" rel="noopener" href="https://order.idwebhost.com/domain/${r.domain}">🔗 Klaim di IDwebhost →</a></div><span class="badges"><span class="badge ok">TERSEDIA</span></span>`;
+      row.className = 'res hit';
+      row.innerHTML = `<div><span class="dom">${r.domain}</span><span class="price free">GRATIS</span><br><a class="claim" target="_blank" rel="noopener" href="${CLAIM_URL}">🎟️ Klaim Gratis →</a></div><span class="badges"><span class="badge ok">TERSEDIA</span></span>`;
       box.append(row);
     } else if (r.status === 'taken') {
-      row.innerHTML = `<span class="dom" style="color:#9aa2b8">${r.domain}</span><span class="badge no">Terpakai</span>`;
+      row.className = 'res';
+      row.innerHTML = `<span class="dom" style="color:#b9b6d4">${r.domain}</span><span class="badge no">Terpakai</span>`;
       box.append(row);
     } else {
-      row.innerHTML = `<span class="dom" style="color:#9aa2b8">${r.domain}</span><span class="badge err">Gagal dicek</span>`;
+      row.className = 'res';
+      row.innerHTML = `<span class="dom" style="color:#b9b6d4">${r.domain}</span><span class="badge err">Gagal dicek</span>`;
       box.append(row);
     }
   }
@@ -146,7 +219,7 @@ document.getElementById('filterBtn').addEventListener('click', e => {
 document.getElementById('copyBtn').addEventListener('click', async e => {
   const avail = allResults.filter(r => r.status === 'available');
   if (!avail.length) { alert('Belum ada domain tersedia.'); return; }
-  const text = avail.map(r => `${r.domain} (${PRICE[r.tld] || ''})\nhttps://order.idwebhost.com/domain/${r.domain}`).join('\n\n');
+  const text = avail.map(r => `${r.domain} (GRATIS dengan kupon OktW-o2IdH)\n${CLAIM_URL}`).join('\n\n');
   try { await navigator.clipboard.writeText(text); e.target.textContent = '✅ Tersalin!'; }
   catch { e.target.textContent = '❌ Gagal menyalin'; }
   setTimeout(() => e.target.textContent = '📋 Salin daftar', 1800);
@@ -155,7 +228,7 @@ document.getElementById('copyBtn').addEventListener('click', async e => {
 document.getElementById('csvBtn').addEventListener('click', () => {
   if (!allResults.length) { alert('Belum ada hasil.'); return; }
   const rows = [['domain', 'tld', 'status', 'harga_promo', 'link_klaim']];
-  for (const r of allResults) rows.push([r.domain, r.tld, r.status, PRICE[r.tld] || '', 'https://order.idwebhost.com/domain/' + r.domain]);
+  for (const r of allResults) rows.push([r.domain, r.tld, r.status, PRICE[r.tld] || '', CLAIM_URL]);
   const csv = rows.map(x => x.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n');
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
