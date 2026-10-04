@@ -133,9 +133,9 @@ usahaku</textarea>
   <div class="card">
     <label class="ttl">📋 Cara klaim gratis <span style="font-weight:400;color:#8a87a8">(metode terverifikasi)</span></label>
     <ol class="steps">
-      <li>Buka halaman klaim: <a href="https://order.idwebhost.com/domain-gratis" target="_blank" rel="noopener" style="color:#7c3aed;font-weight:700">order.idwebhost.com/domain-gratis</a></li>
-      <li>Ketik nama domain yang tersedia, pastikan kupon <code class="kupon" id="couponCode2">OktW-o2IdH</code> terpasang (klik untuk salin).</li>
-      <li>Daftar / login dengan akun Google, lalu klik <b>Klaim Sekarang</b>.</li>
+      <li>Tap tombol <b>🎟️ Klaim Gratis →</b> pada domain yang tersedia — <b>kupon otomatis tersalin</b> dan halaman klaim langsung terbuka dengan domain sudah terisi.</li>
+      <li>Di halaman IDwebhost: <b>tempel</b> kupon di kolom <i>Kode Kupon</i> (<code class="kupon" id="couponCode2">OktW-o2IdH</code>, klik untuk salin ulang), lalu klik <b>Pakai</b>.</li>
+      <li>Klik <b>Daftar dengan Google</b>, lalu <b>Klaim Sekarang</b>.</li>
       <li>Pastikan tagihan <b>TOTAL = Rp0</b> dan status <b>Lunas</b> — domain aktif 1 tahun.</li>
       <li>Catatan: biaya <b>perpanjangan</b> tahun berikutnya ±Rp22.000/tahun untuk .my.id.</li>
     </ol>
@@ -205,6 +205,33 @@ function copyCoupon(el) {
 document.getElementById('couponCode').addEventListener('click', e => copyCoupon(e.target));
 document.getElementById('couponCode2').addEventListener('click', e => copyCoupon(e.target));
 
+// Toast kecil untuk konfirmasi kupon tersalin saat tap tombol klaim
+const toast = document.createElement('div');
+toast.id = 'toast';
+toast.style.cssText = 'position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:#1e1b33;color:#fff;font-weight:700;font-size:.88rem;padding:12px 20px;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.3);opacity:0;transition:all .25s;z-index:99;pointer-events:none;max-width:92vw;text-align:center;';
+document.body.appendChild(toast);
+let toastTimer;
+function showToast(msg) {
+  toast.textContent = msg;
+  toast.style.opacity = '1';
+  toast.style.transform = 'translateX(-50%) translateY(0)';
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(-50%) translateY(20px)';
+  }, 2600);
+}
+
+// Tap tombol klaim: salin kupon otomatis + buka halaman klaim (domain sudah terisi)
+document.getElementById('results').addEventListener('click', e => {
+  const a = e.target.closest('.claimBtn');
+  if (!a) return;
+  navigator.clipboard.writeText(PROMO.coupon).then(
+    () => showToast('🎟️ Kupon ' + PROMO.coupon + ' tersalin — tinggal tempel di kolom kupon!'),
+    () => showToast('Membuka halaman klaim…')
+  );
+});
+
 function renderResults() {
   const box = document.getElementById('results');
   box.innerHTML = '';
@@ -213,7 +240,7 @@ function renderResults() {
     const row = document.createElement('div');
     if (r.status === 'available') {
       row.className = 'res hit';
-      row.innerHTML = `<div><span class="dom">${r.domain}</span><span class="price free">GRATIS</span><br><a class="claim" target="_blank" rel="noopener" href="${CLAIM_URL}">🎟️ Klaim Gratis →</a></div><span class="badges"><span class="badge ok">TERSEDIA</span></span>`;
+      row.innerHTML = `<div><span class="dom">${r.domain}</span><span class="price free">GRATIS</span><br><a class="claim claimBtn" target="_blank" rel="noopener" data-domain="${r.domain}" href="${CLAIM_URL}/${r.domain}">🎟️ Klaim Gratis →</a></div><span class="badges"><span class="badge ok">TERSEDIA</span></span>`;
       box.append(row);
     } else if (r.status === 'taken') {
       row.className = 'res';
@@ -238,7 +265,7 @@ document.getElementById('filterBtn').addEventListener('click', e => {
 document.getElementById('copyBtn').addEventListener('click', async e => {
   const avail = allResults.filter(r => r.status === 'available');
   if (!avail.length) { alert('Belum ada domain tersedia.'); return; }
-  const text = avail.map(r => `${r.domain} (GRATIS dengan kupon ${PROMO.coupon})\n${CLAIM_URL}`).join('\n\n');
+  const text = avail.map(r => `${r.domain} (GRATIS dengan kupon ${PROMO.coupon})\n${CLAIM_URL}/${r.domain}`).join('\n\n');
   try { await navigator.clipboard.writeText(text); e.target.textContent = '✅ Tersalin!'; }
   catch { e.target.textContent = '❌ Gagal menyalin'; }
   setTimeout(() => e.target.textContent = '📋 Salin daftar', 1800);
@@ -247,7 +274,7 @@ document.getElementById('copyBtn').addEventListener('click', async e => {
 document.getElementById('csvBtn').addEventListener('click', () => {
   if (!allResults.length) { alert('Belum ada hasil.'); return; }
   const rows = [['domain', 'tld', 'status', 'harga_promo', 'link_klaim']];
-  for (const r of allResults) rows.push([r.domain, r.tld, r.status, PRICE[r.tld] || '', CLAIM_URL]);
+  for (const r of allResults) rows.push([r.domain, r.tld, r.status, PRICE[r.tld] || '', CLAIM_URL + '/' + r.domain]);
   const csv = rows.map(x => x.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n');
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
