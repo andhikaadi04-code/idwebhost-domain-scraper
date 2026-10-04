@@ -4,7 +4,14 @@ Mencari domain **.my.id / .web.id / .biz.id** yang masih tersedia untuk
 diklaim lewat promo IDwebhost (script hanya *mencari* — klaim tetap manual
 di akun IDwebhost masing-masing).
 
-## Cara pakai
+## Versi web
+
+Buka `web/index.html` di browser (bisa langsung dari HP, tanpa install
+apa pun): masukkan nama, pilih TLD, klik cek. Fitur: harga promo per TLD,
+filter hanya yang tersedia, salin daftar, unduh CSV, dan link klaim
+langsung ke IDwebhost.
+
+## Cara pakai (CLI)
 
 ```bash
 cd ~/workspace/idwebhost-domain-scraper
