@@ -139,13 +139,32 @@ usahaku</textarea>
       <li>Pastikan tagihan <b>TOTAL = Rp0</b> dan status <b>Lunas</b> — domain aktif 1 tahun.</li>
       <li>Catatan: biaya <b>perpanjangan</b> tahun berikutnya ±Rp22.000/tahun untuk .my.id.</li>
     </ol>
-    <p class="note">Terverifikasi 2026-10-04 oleh pemilik situs: kupon <b>OktW-o2IdH</b> berlaku untuk klaim gratis .my.id / .web.id / .biz.id selama 1 tahun pada periode 2–4 Oktober 2026. Harga & promo bisa berubah sewaktu-waktu.</p>
+    <p class="note" id="promoNote">Terverifikasi 2026-10-04 oleh pemilik situs: kupon <b>OktW-o2IdH</b> berlaku untuk klaim gratis .my.id / .web.id / .biz.id selama 1 tahun pada periode 2–4 Oktober 2026. Harga & promo bisa berubah sewaktu-waktu.</p>
   </div>
 
   <p class="foot">Dibuat dengan 💜 untuk pemburu domain gratis · <a href="https://dikadev.web.id" target="_blank" rel="noopener">DikaDev</a></p>
 </div>
 
 <script>
+/* ===== KONFIG PROMO — cukup ubah blok ini saat ada kupon/promo baru ===== */
+const PROMO = {
+  coupon: 'OktW-o2IdH',                                   // kode kupon aktif
+  period: '2–4 Okt 2026',                                 // masa berlaku kupon
+  tlds: '.my.id / .web.id / .biz.id',                     // TLD yang dicover
+  claimUrl: 'https://order.idwebhost.com/domain-gratis', // halaman klaim
+  verified: 'Terverifikasi 2026-10-04 oleh pemilik situs', // catatan verifikasi
+  proof: '✅ Terbukti berhasil: <b>aidika.my.id</b> diklaim <b>Rp0</b> (04/10/2026) — tagihan Lunas, domain aktif 1 tahun.'
+};
+/* ===== akhir KONFIG PROMO ===== */
+
+document.getElementById('couponCode').textContent = PROMO.coupon;
+document.getElementById('couponCode2').textContent = PROMO.coupon;
+document.querySelector('.coupon .exp').textContent = '⏳ berlaku ' + PROMO.period;
+document.querySelector('.alert-ok').innerHTML = PROMO.proof;
+document.getElementById('promoNote').innerHTML =
+  `${PROMO.verified}: kupon <b>${PROMO.coupon}</b> untuk klaim gratis ${PROMO.tlds} ` +
+  `selama 1 tahun pada periode ${PROMO.period}. Harga & promo bisa berubah sewaktu-waktu.`;
+
 const DOH = [
   'https://cloudflare-dns.com/dns-query',
   'https://dns.google/resolve'
@@ -169,15 +188,15 @@ async function checkDomain(domain) {
 
 const validName = n => /^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/i.test(n);
 
-// Harga promo per TLD selama periode kupon (terverifikasi 2026-10-04, bisa berubah)
+// Harga promo per TLD selama periode kupon (bisa berubah; lihat PROMO di atas)
 const PRICE = { 'my.id': 'Rp0', 'web.id': 'Rp0', 'biz.id': 'Rp0' };
-const CLAIM_URL = 'https://order.idwebhost.com/domain-gratis';
+const CLAIM_URL = PROMO.claimUrl;
 
 let allResults = [];
 let filterAvail = false;
 
 function copyCoupon(el) {
-  navigator.clipboard.writeText('OktW-o2IdH').then(() => {
+  navigator.clipboard.writeText(PROMO.coupon).then(() => {
     const old = el.textContent;
     el.textContent = '✅ Tersalin!';
     setTimeout(() => el.textContent = old, 1500);
@@ -219,7 +238,7 @@ document.getElementById('filterBtn').addEventListener('click', e => {
 document.getElementById('copyBtn').addEventListener('click', async e => {
   const avail = allResults.filter(r => r.status === 'available');
   if (!avail.length) { alert('Belum ada domain tersedia.'); return; }
-  const text = avail.map(r => `${r.domain} (GRATIS dengan kupon OktW-o2IdH)\n${CLAIM_URL}`).join('\n\n');
+  const text = avail.map(r => `${r.domain} (GRATIS dengan kupon ${PROMO.coupon})\n${CLAIM_URL}`).join('\n\n');
   try { await navigator.clipboard.writeText(text); e.target.textContent = '✅ Tersalin!'; }
   catch { e.target.textContent = '❌ Gagal menyalin'; }
   setTimeout(() => e.target.textContent = '📋 Salin daftar', 1800);
