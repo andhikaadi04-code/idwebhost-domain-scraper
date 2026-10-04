@@ -79,6 +79,8 @@
 
   ol.steps { margin: 10px 0 0; padding-left: 22px; font-size: .9rem; color: #3d3a5c; }
   ol.steps li { margin-bottom: 8px; line-height: 1.55; }
+  .coupon-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 10px 0 2px; font-size: .9rem; color: #3d3a5c; }
+  .coupon-row .tap { font-size: .78rem; color: #8a87a8; }
   code.kupon { background: #ede9fe; color: #6d28d9; padding: 3px 9px; border-radius: 7px;
     font-weight: 800; cursor: pointer; border: 1px dashed #a78bfa; }
   .note { font-size: .82rem; color: #8a87a8; margin-top: 12px; line-height: 1.55; }
@@ -107,9 +109,7 @@
   <div class="card">
     <div class="alert-ok">✅ Terbukti berhasil: <b>aidika.my.id</b> diklaim <b>Rp0</b> (04/10/2026) — tagihan Lunas, domain aktif 1 tahun.</div>
     <label class="ttl" for="names">Nama domain <span style="font-weight:400;color:#8a87a8">(satu per baris, tanpa TLD)</span></label>
-    <textarea id="names" placeholder="contoh:&#10;tokoku&#10;brandku&#10;usahaku">tokoku
-brandku
-usahaku</textarea>
+    <textarea id="names" placeholder="Tulis nama domain di sini, satu per baris"></textarea>
     <div class="tlds">
       <label><input type="checkbox" class="tld" value="my.id" checked> .my.id</label>
       <label><input type="checkbox" class="tld" value="web.id" checked> .web.id</label>
@@ -132,13 +132,14 @@ usahaku</textarea>
 
   <div class="card">
     <label class="ttl">📋 Cara klaim gratis <span style="font-weight:400;color:#8a87a8">(metode terverifikasi)</span></label>
+    <div class="coupon-row"><span>Kupon aktif:</span> <code class="kupon" id="couponCode2">OktW-o2IdH</code> <span class="tap">👆 tap untuk salin</span></div>
     <ol class="steps">
-      <li>Tap tombol <b>🎟️ Klaim Gratis →</b> pada domain yang tersedia — <b>kupon otomatis tersalin</b> dan halaman klaim langsung terbuka dengan domain sudah terisi.</li>
-      <li>Di halaman IDwebhost: <b>tempel</b> kupon di kolom <i>Kode Kupon</i> (<code class="kupon" id="couponCode2">OktW-o2IdH</code>, klik untuk salin ulang), lalu klik <b>Pakai</b>.</li>
-      <li>Klik <b>Daftar dengan Google</b>, lalu <b>Klaim Sekarang</b>.</li>
-      <li>Pastikan tagihan <b>TOTAL = Rp0</b> dan status <b>Lunas</b> — domain aktif 1 tahun.</li>
-      <li>Catatan: biaya <b>perpanjangan</b> tahun berikutnya ±Rp22.000/tahun untuk .my.id.</li>
+      <li>Tap <b>🎟️ Klaim Gratis →</b> di domain yang tersedia — halaman klaim terbuka dengan domain sudah terisi.</li>
+      <li>Tempel kupon di kolom <i>Kode Kupon</i>, klik <b>Pakai</b>.</li>
+      <li>Klik <b>Daftar dengan Google</b> → <b>Klaim Sekarang</b>.</li>
+      <li>Pastikan total <b>Rp0</b> dan status <b>Lunas</b> — domain aktif 1 tahun.</li>
     </ol>
+    <p class="note">Perpanjangan tahun berikutnya ±Rp22.000/tahun (.my.id).</p>
     <p class="note" id="promoNote">Terverifikasi 2026-10-04 oleh pemilik situs: kupon <b>OktW-o2IdH</b> berlaku untuk klaim gratis .my.id / .web.id / .biz.id selama 1 tahun pada periode 2–4 Oktober 2026. Harga & promo bisa berubah sewaktu-waktu.</p>
   </div>
 
