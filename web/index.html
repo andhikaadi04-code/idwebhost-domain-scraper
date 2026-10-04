@@ -34,6 +34,12 @@
   code { background: #eef1f7; padding: 2px 7px; border-radius: 6px; font-weight: 700; }
   .note { font-size: .82rem; color: #7a839b; margin-top: 10px; }
   .hidden { display: none; }
+  .tools { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 4px; }
+  .tools button { flex: 1; min-width: 140px; background: #eef1f7; color: #1c2333; border: 0; border-radius: 8px; padding: 10px; font-size: .88rem; font-weight: 600; cursor: pointer; }
+  .tools button:disabled { opacity: .45; cursor: default; }
+  .tools button.on { background: #2563eb; color: #fff; }
+  .price { font-size: .75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; white-space: nowrap; background: #e0e7ff; color: #3730a3; margin-left: 6px; }
+  .badges { display: flex; gap: 4px; align-items: center; }
 </style>
 </head>
 <body>
@@ -57,6 +63,11 @@ usahaku</textarea>
 
   <div class="card hidden" id="resCard">
     <label>Hasil <span id="resCount" style="font-weight:400;color:#5b6478"></span></label>
+    <div class="tools">
+      <button id="filterBtn">Hanya yang tersedia: OFF</button>
+      <button id="copyBtn">📋 Salin daftar</button>
+      <button id="csvBtn">⬇ Unduh CSV</button>
+    </div>
     <div id="results"></div>
     <p class="note">Pengecekan via DNS publik: belum terdaftar = tersedia. Kebenaran final tetap di halaman IDwebhost saat klaim.</p>
   </div>
@@ -98,6 +109,61 @@ async function checkDomain(domain) {
 
 const validName = n => /^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/i.test(n);
 
+// Harga promo per TLD (terverifikasi 2026-10-04, bisa berubah)
+const PRICE = { 'my.id': 'Rp0', 'web.id': 'Rp3.000', 'biz.id': 'cek situs' };
+
+let allResults = [];   // {domain, tld, status}
+let filterAvail = false;
+
+function renderResults() {
+  const box = document.getElementById('results');
+  box.innerHTML = '';
+  const list = filterAvail ? allResults.filter(r => r.status === 'available') : allResults;
+  for (const r of list) {
+    const row = document.createElement('div');
+    row.className = 'res';
+    if (r.status === 'available') {
+      row.innerHTML = `<div><span class="dom">${r.domain}</span><span class="price">${PRICE[r.tld] || ''}</span><br><a class="claim" target="_blank" rel="noopener" href="https://order.idwebhost.com/domain/${r.domain}">🔗 Klaim di IDwebhost →</a></div><span class="badges"><span class="badge ok">TERSEDIA</span></span>`;
+      box.append(row);
+    } else if (r.status === 'taken') {
+      row.innerHTML = `<span class="dom" style="color:#9aa2b8">${r.domain}</span><span class="badge no">Terpakai</span>`;
+      box.append(row);
+    } else {
+      row.innerHTML = `<span class="dom" style="color:#9aa2b8">${r.domain}</span><span class="badge err">Gagal dicek</span>`;
+      box.append(row);
+    }
+  }
+  if (!list.length) box.innerHTML = '<p class="note">Tidak ada hasil untuk filter ini.</p>';
+}
+
+document.getElementById('filterBtn').addEventListener('click', e => {
+  filterAvail = !filterAvail;
+  e.target.textContent = 'Hanya yang tersedia: ' + (filterAvail ? 'ON' : 'OFF');
+  e.target.classList.toggle('on', filterAvail);
+  renderResults();
+});
+
+document.getElementById('copyBtn').addEventListener('click', async e => {
+  const avail = allResults.filter(r => r.status === 'available');
+  if (!avail.length) { alert('Belum ada domain tersedia.'); return; }
+  const text = avail.map(r => `${r.domain} (${PRICE[r.tld] || ''})\nhttps://order.idwebhost.com/domain/${r.domain}`).join('\n\n');
+  try { await navigator.clipboard.writeText(text); e.target.textContent = '✅ Tersalin!'; }
+  catch { e.target.textContent = '❌ Gagal menyalin'; }
+  setTimeout(() => e.target.textContent = '📋 Salin daftar', 1800);
+});
+
+document.getElementById('csvBtn').addEventListener('click', () => {
+  if (!allResults.length) { alert('Belum ada hasil.'); return; }
+  const rows = [['domain', 'tld', 'status', 'harga_promo', 'link_klaim']];
+  for (const r of allResults) rows.push([r.domain, r.tld, r.status, PRICE[r.tld] || '', 'https://order.idwebhost.com/domain/' + r.domain]);
+  const csv = rows.map(x => x.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+  a.download = 'hasil-cek-domain.csv';
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+});
+
 document.getElementById('go').addEventListener('click', async () => {
   const btn = document.getElementById('go');
   const raw = document.getElementById('names').value.split('\n')
@@ -114,6 +180,9 @@ document.getElementById('go').addEventListener('click', async () => {
   const progWrap = document.getElementById('progWrap');
   box.innerHTML = ''; card.classList.remove('hidden'); progWrap.classList.remove('hidden');
   btn.disabled = true;
+  filterAvail = false;
+  const fb = document.getElementById('filterBtn');
+  fb.textContent = 'Hanya yang tersedia: OFF'; fb.classList.remove('on');
 
   let done = 0, avail = 0;
   const update = () => {
@@ -124,24 +193,16 @@ document.getElementById('go').addEventListener('click', async () => {
   update();
 
   const CONC = 6;
+  allResults = [];
   async function worker() {
     while (jobs.length) {
       const domain = jobs.shift();
+      const tld = domain.split('.').slice(1).join('.');
       const st = await checkDomain(domain);
       done++;
-      const row = document.createElement('div');
-      row.className = 'res';
-      if (st === 'available') {
-        avail++;
-        row.innerHTML = `<div><span class="dom">${domain}</span><br><a class="claim" target="_blank" rel="noopener" href="https://order.idwebhost.com/domain/${domain}">🔗 Klaim di IDwebhost →</a></div><span class="badge ok">TERSEDIA</span>`;
-        box.prepend(row);
-      } else if (st === 'taken') {
-        row.innerHTML = `<span class="dom" style="color:#9aa2b8">${domain}</span><span class="badge no">Terpakai</span>`;
-        box.append(row);
-      } else {
-        row.innerHTML = `<span class="dom" style="color:#9aa2b8">${domain}</span><span class="badge err">Gagal dicek</span>`;
-        box.append(row);
-      }
+      if (st === 'available') avail++;
+      allResults.push({ domain, tld, status: st });
+      renderResults();
       update();
       await new Promise(r => setTimeout(r, 150));
     }
