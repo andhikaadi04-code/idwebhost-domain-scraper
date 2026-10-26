@@ -3,23 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cek Domain Gratis IDwebhost</title>
+<title>GratisDomain — Cek & Klaim Domain Gratis IDwebhost</title>
+<meta name="description" content="Cek ketersediaan domain .my.id, .web.id, dan .biz.id, lalu klaim gratis 1 tahun pakai kupon resmi IDwebhost yang terverifikasi.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Plus Jakarta Sans', -apple-system, 'Segoe UI', Roboto, sans-serif; background: #f4f2ff; color: #1e1b33; min-height: 100vh; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Plus Jakarta Sans', -apple-system, 'Segoe UI', Roboto, sans-serif; background: #f7f6fc; color: #1e1b33; min-height: 100vh; -webkit-font-smoothing: antialiased; }
 
-  .hero { background: linear-gradient(135deg, #1e1b4b 0%, #4c1d95 45%, #7c3aed 75%, #a855f7 100%);
-    color: #fff; padding: 40px 20px 34px; position: relative; overflow: hidden; text-align: center; }
-  .hero::before, .hero::after { content: ''; position: absolute; border-radius: 50%; filter: blur(60px); opacity: .45; }
-  .hero::before { width: 260px; height: 260px; background: #ec4899; top: -80px; left: -60px; }
-  .hero::after { width: 220px; height: 220px; background: #22d3ee; bottom: -70px; right: -50px; }
-  .hero-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
-  .hero h1 { font-size: 1.7rem; font-weight: 800; letter-spacing: -.02em; }
-  .hero p.sub { color: #ddd6fe; font-size: .95rem; margin-top: 8px; }
+  /* ===== Navigasi ===== */
+  .nav { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.88); backdrop-filter: blur(10px);
+    border-bottom: 1px solid #e9e6f7; }
+  .nav-in { max-width: 960px; margin: 0 auto; padding: 12px 20px; display: flex; align-items: center; gap: 22px; }
+  .logo { font-weight: 800; font-size: 1.05rem; color: #1e1b4b; text-decoration: none; letter-spacing: -.01em; }
+  .logo span { color: #7c3aed; }
+  .nav nav { display: flex; gap: 18px; margin-left: auto; }
+  .nav nav a { color: #4b4767; text-decoration: none; font-size: .9rem; font-weight: 600; }
+  .nav nav a:hover { color: #7c3aed; }
+  .nav .cta { background: linear-gradient(135deg, #7c3aed, #6d28d9); color: #fff; text-decoration: none;
+    font-weight: 700; font-size: .88rem; padding: 9px 16px; border-radius: 999px; box-shadow: 0 4px 14px rgba(124,58,237,.35); }
+  @media (max-width: 560px) { .nav nav { display: none; } .nav .cta { margin-left: auto; } }
 
-  .coupon { display: inline-flex; align-items: center; gap: 10px; margin-top: 18px;
+  /* ===== Hero ===== */
+  .hero { background: linear-gradient(135deg, #1e1b4b 0%, #4c1d95 55%, #7c3aed 100%);
+    color: #fff; padding: 52px 20px 64px; position: relative; overflow: hidden; text-align: center; }
+  .hero::before, .hero::after { content: ''; position: absolute; border-radius: 50%; filter: blur(70px); opacity: .35; }
+  .hero::before { width: 280px; height: 280px; background: #ec4899; top: -90px; left: -70px; }
+  .hero::after { width: 240px; height: 240px; background: #22d3ee; bottom: -80px; right: -60px; }
+  .hero-inner { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
+  .eyebrow { display: inline-block; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.3);
+    color: #ede9fe; font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 999px; }
+  .hero h1 { font-size: 2.1rem; font-weight: 800; letter-spacing: -.02em; line-height: 1.2; margin-top: 16px; }
+  .hero p.sub { color: #ddd6fe; font-size: 1rem; margin-top: 12px; line-height: 1.6; }
+
+  .coupon { display: inline-flex; align-items: center; gap: 10px; margin-top: 22px;
     background: rgba(255,255,255,.14); border: 1.5px dashed rgba(255,255,255,.55);
     border-radius: 14px; padding: 10px 14px; backdrop-filter: blur(6px); flex-wrap: wrap; justify-content: center; }
   .coupon .lbl { font-size: .8rem; color: #ede9fe; font-weight: 600; }
@@ -27,10 +46,16 @@
     padding: 6px 12px; border-radius: 8px; letter-spacing: .04em; cursor: pointer; }
   .coupon .exp { font-size: .75rem; color: #fbcfe8; font-weight: 600; }
 
-  .wrap { max-width: 640px; margin: -22px auto 0; padding: 0 16px 40px; position: relative; z-index: 2; }
-  .card { background: #fff; border-radius: 18px; padding: 20px; margin-bottom: 14px;
-    box-shadow: 0 8px 28px rgba(76,29,149,.10); border: 1px solid #ede9fe; }
-  label.ttl { font-weight: 700; font-size: .95rem; display: block; margin-bottom: 8px; }
+  .stats { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 26px; }
+  .stat { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); border-radius: 14px; padding: 12px 18px; min-width: 150px; }
+  .stat b { display: block; font-size: 1.15rem; font-weight: 800; }
+  .stat span { font-size: .78rem; color: #ddd6fe; font-weight: 600; }
+
+  /* ===== Konten ===== */
+  .wrap { max-width: 720px; margin: -30px auto 0; padding: 0 16px 48px; position: relative; z-index: 2; }
+  .card { background: #fff; border-radius: 18px; padding: 22px; margin-bottom: 16px;
+    box-shadow: 0 8px 28px rgba(76,29,149,.08); border: 1px solid #e9e6f7; }
+  label.ttl { font-weight: 700; font-size: .98rem; display: block; margin-bottom: 8px; }
   textarea { width: 100%; min-height: 110px; border: 2px solid #e5e0fa; border-radius: 12px;
     padding: 12px; font-size: .95rem; font-family: inherit; resize: vertical; background: #faf9ff; color: #1e1b33; }
   textarea:focus { outline: none; border-color: #7c3aed; background: #fff; }
@@ -77,37 +102,89 @@
   .price.free { background: linear-gradient(135deg, #86efac, #4ade80); color: #14532d; }
   .badges { display: flex; gap: 4px; align-items: center; }
 
-  ol.steps { margin: 10px 0 0; padding-left: 22px; font-size: .9rem; color: #3d3a5c; }
+  /* ===== Section umum ===== */
+  .section { max-width: 960px; margin: 0 auto; padding: 12px 20px 8px; }
+  .sec-head { text-align: center; margin: 26px 0 18px; }
+  .sec-eyebrow { color: #7c3aed; font-size: .78rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+  .sec-head h2 { font-size: 1.45rem; font-weight: 800; letter-spacing: -.01em; margin-top: 6px; color: #1e1b4b; }
+  .sec-head p { color: #6d6a8a; font-size: .93rem; margin-top: 6px; }
+
+  .feats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  @media (max-width: 720px) { .feats { grid-template-columns: 1fr; } }
+  .feat { background: #fff; border: 1px solid #e9e6f7; border-radius: 16px; padding: 20px;
+    box-shadow: 0 4px 16px rgba(76,29,149,.05); }
+  .feat .ic { font-size: 1.5rem; }
+  .feat h3 { font-size: 1rem; font-weight: 800; margin: 10px 0 6px; color: #1e1b4b; }
+  .feat p { font-size: .88rem; color: #6d6a8a; line-height: 1.6; }
+
+  ol.steps { margin: 10px 0 0; padding-left: 22px; font-size: .92rem; color: #3d3a5c; }
   ol.steps li { margin-bottom: 8px; line-height: 1.55; }
-  .coupon-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 10px 0 2px; font-size: .9rem; color: #3d3a5c; }
+  .coupon-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 10px 0 2px; font-size: .92rem; color: #3d3a5c; }
   .coupon-row .tap { font-size: .78rem; color: #8a87a8; }
   code.kupon { background: #ede9fe; color: #6d28d9; padding: 3px 9px; border-radius: 7px;
     font-weight: 800; cursor: pointer; border: 1px dashed #a78bfa; }
   .note { font-size: .82rem; color: #8a87a8; margin-top: 12px; line-height: 1.55; }
   .hidden { display: none; }
   .alert-ok { background: linear-gradient(135deg, #ecfdf5, #d1fae5); border: 1.5px solid #6ee7b7;
-    border-radius: 14px; padding: 12px 16px; font-size: .87rem; color: #065f46; font-weight: 600; margin-bottom: 14px; }
-  .foot { text-align: center; color: #a5a1c5; font-size: .78rem; margin-top: 18px; }
+    border-radius: 14px; padding: 12px 16px; font-size: .87rem; color: #065f46; font-weight: 600; margin-bottom: 16px;
+    box-shadow: 0 4px 14px rgba(22,163,74,.08); }
+
+  /* ===== FAQ ===== */
+  .faq { max-width: 720px; margin: 0 auto; }
+  details { background: #fff; border: 1px solid #e9e6f7; border-radius: 14px; padding: 16px 18px; margin-bottom: 10px; }
+  details summary { font-weight: 700; font-size: .95rem; cursor: pointer; color: #1e1b4b; list-style: none; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::after { content: '+'; float: right; color: #7c3aed; font-weight: 800; }
+  details[open ] summary::after { content: '–'; }
+  details p { font-size: .9rem; color: #6d6a8a; line-height: 1.65; margin-top: 10px; }
+
+  .cta-band { max-width: 720px; margin: 28px auto 0; text-align: center; background: linear-gradient(135deg, #1e1b4b, #4c1d95);
+    color: #fff; border-radius: 20px; padding: 30px 22px; }
+  .cta-band h2 { font-size: 1.3rem; font-weight: 800; }
+  .cta-band p { color: #ddd6fe; font-size: .92rem; margin: 8px 0 16px; }
+  .cta-band a { display: inline-block; background: #fff; color: #6d28d9; font-weight: 800; text-decoration: none;
+    padding: 12px 24px; border-radius: 999px; font-size: .95rem; }
+
+  .foot { text-align: center; color: #a5a1c5; font-size: .78rem; margin-top: 22px; }
   .foot a { color: #7c3aed; font-weight: 700; text-decoration: none; }
 </style>
 </head>
 <body>
 
+<header class="nav">
+  <div class="nav-in">
+    <a class="logo" href="#">🎯 Gratis<span>Domain</span>.web.id</a>
+    <nav>
+      <a href="#cek">Cek Domain</a>
+      <a href="#cara">Cara Klaim</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="cta" href="https://order.idwebhost.com/domain-gratis" target="_blank" rel="noopener">Klaim Gratis</a>
+  </div>
+</header>
+
 <div class="hero">
   <div class="hero-inner">
-    <h1>🎯 Cek Domain Gratis IDwebhost</h1>
-    <p class="sub">Cek ketersediaan <b>.my.id</b> / <b>.web.id</b> / <b>.biz.id</b> langsung dari browser kamu. Yang tersedia dapat link klaim gratis.</p>
+    <span class="eyebrow">Promo Domain Gratis IDwebhost</span>
+    <h1>Cek &amp; Klaim Domain Gratis, Tanpa Ribet</h1>
+    <p class="sub">Cek ketersediaan <b>.my.id</b> / <b>.web.id</b> / <b>.biz.id</b> langsung dari browser kamu. Yang tersedia bisa langsung diklaim gratis 1 tahun pakai kupon resmi yang terverifikasi.</p>
     <div class="coupon" title="Klik kode untuk menyalin">
       <span class="lbl">🎟️ Kupon gratis:</span>
       <code id="couponCode">OktW-o2IdH</code>
       <span class="exp">⏳ berlaku 2–4 Okt 2026</span>
     </div>
+    <div class="stats">
+      <div class="stat"><b>3 TLD</b><span>.my.id · .web.id · .biz.id</span></div>
+      <div class="stat"><b>1 Tahun</b><span>masa aktif domain</span></div>
+      <div class="stat"><b>Rp0</b><span>terbukti berhasil diklaim</span></div>
+    </div>
   </div>
 </div>
 
 <div class="wrap">
-  <div class="card">
-    <div class="alert-ok">✅ Terbukti berhasil: <b>aidika.my.id</b> diklaim <b>Rp0</b> (04/10/2026) — tagihan Lunas, domain aktif 1 tahun.</div>
+  <div class="alert-ok">✅ Terbukti berhasil: <b>aidika.my.id</b> diklaim <b>Rp0</b> (04/10/2026) — tagihan Lunas, domain aktif 1 tahun.</div>
+
+  <div class="card" id="cek">
     <label class="ttl" for="names">Nama domain <span style="font-weight:400;color:#8a87a8">(satu per baris, tanpa TLD)</span></label>
     <textarea id="names" placeholder="Tulis nama domain di sini, satu per baris"></textarea>
     <div class="tlds">
@@ -129,9 +206,27 @@
     <div id="results"></div>
     <p class="note">Pengecekan via DNS publik: belum terdaftar = tersedia. Kebenaran final tetap di halaman IDwebhost saat klaim.</p>
   </div>
+</div>
 
-  <div class="card">
-    <label class="ttl">📋 Cara klaim gratis <span style="font-weight:400;color:#8a87a8">(metode terverifikasi)</span></label>
+<div class="section">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Kenapa Lewat Sini</div>
+    <h2>Cek dulu, klaim kemudian</h2>
+    <p>Tiga hal yang bikin berburu domain gratis jauh lebih cepat.</p>
+  </div>
+  <div class="feats">
+    <div class="feat"><div class="ic">🔎</div><h3>Cek massal real-time</h3><p>Tulis banyak nama sekaligus, hasilnya langsung keluar dari DNS publik — mana yang masih kosong, mana yang sudah terpakai.</p></div>
+    <div class="feat"><div class="ic">✅</div><h3>Kupon terverifikasi</h3><p>Kupon yang tampil di sini selalu disertai bukti klaim berhasil Rp0, bukan sekadar kode broadcast yang belum tentu tembus.</p></div>
+    <div class="feat"><div class="ic">🚀</div><h3>Link klaim langsung</h3><p>Domain yang tersedia punya tombol klaim dengan nama sudah terisi, dan kupon otomatis tersalin saat tombolnya di-tap.</p></div>
+  </div>
+</div>
+
+<div class="section" id="cara">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Cara Klaim</div>
+    <h2>Domain aktif dalam empat langkah</h2>
+  </div>
+  <div class="card" style="max-width:720px;margin:0 auto;">
     <div class="coupon-row"><span>Kupon aktif:</span> <code class="kupon" id="couponCode2">OktW-o2IdH</code> <span class="tap">👆 tap untuk salin</span></div>
     <ol class="steps">
       <li>Tap <b>🎟️ Klaim Gratis →</b> di domain yang tersedia — halaman klaim terbuka dengan domain sudah terisi.</li>
@@ -142,19 +237,41 @@
     <p class="note">Perpanjangan tahun berikutnya ±Rp22.000/tahun (.my.id).</p>
     <p class="note" id="promoNote">Terverifikasi 2026-10-04 oleh pemilik situs: kupon <b>OktW-o2IdH</b> berlaku untuk klaim gratis .my.id / .web.id / .biz.id selama 1 tahun pada periode 2–4 Oktober 2026. Harga & promo bisa berubah sewaktu-waktu.</p>
   </div>
+</div>
 
+<div class="section" id="faq">
+  <div class="sec-head">
+    <div class="sec-eyebrow">FAQ</div>
+    <h2>Pertanyaan yang sering diajukan</h2>
+  </div>
+  <div class="faq">
+    <details><summary>Apakah domainnya benar-benar gratis?</summary><p>Ya. Kupon resmi IDwebhost yang dibagikan saat live/promo membuat total klaim jadi Rp0 untuk 1 tahun pertama. Patokannya sederhana: selesaikan klaim hanya kalau totalnya Rp0.</p></details>
+    <details><summary>TLD apa saja yang bisa diklaim gratis?</summary><p>.my.id, .web.id, dan .biz.id — sesuai kupon yang sedang aktif di halaman ini.</p></details>
+    <details><summary>Berapa biaya perpanjangannya?</summary><p>Sekitar Rp22.000/tahun untuk .my.id. Harga perpanjangan bisa berubah mengikuti kebijakan IDwebhost.</p></details>
+    <details><summary>Domainnya bisa dipakai untuk apa?</summary><p>Untuk Blogspot, landing page, portofolio, toko online, atau diarahkan ke Cloudflare dan hosting lain — sama seperti domain berbayar.</p></details>
+    <details><summary>Kenapa nama yang saya cek tampil “Terpakai”?</summary><p>Artinya domain itu sudah terdaftar atas nama orang lain. Coba variasi nama lain — tambahkan kata, angka, atau pilih TLD yang berbeda.</p></details>
+    <details><summary>Bagaimana situs ini tahu domain masih kosong?</summary><p>Pengecekan dilakukan lewat DNS publik dari browser kamu: domain yang belum terdaftar dianggap tersedia. Hasil final tetap ditentukan di halaman IDwebhost saat klaim.</p></details>
+  </div>
+</div>
+
+<div class="section">
+  <div class="cta-band">
+    <h2>Siap klaim domain gratis pertamamu?</h2>
+    <p>Cek namanya sekarang — selagi kuponnya masih berlaku.</p>
+    <a href="#cek">🔍 Mulai Cek Domain</a>
+  </div>
   <p class="foot">Dibuat dengan 💜 untuk pemburu domain gratis · <a href="https://dikadev.web.id" target="_blank" rel="noopener">DikaDev</a></p>
 </div>
 
 <script>
 /* ===== KONFIG PROMO — cukup ubah blok ini saat ada kupon/promo baru ===== */
 const PROMO = {
-  coupon: 'OktW-o2IdH',                                   // kode kupon aktif
-  period: '2–4 Okt 2026',                                 // masa berlaku kupon
+  coupon: 'BlogDOM-iDh10',                                   // kode kupon aktif
+  period: '26 Okt 2026 (khusus saat LIVE)',                                 // masa berlaku kupon
   tlds: '.my.id / .web.id / .biz.id',                     // TLD yang dicover
   claimUrl: 'https://order.idwebhost.com/domain-gratis', // halaman klaim
-  verified: 'Terverifikasi 2026-10-04 oleh pemilik situs', // catatan verifikasi
-  proof: '✅ Terbukti berhasil: <b>aidika.my.id</b> diklaim <b>Rp0</b> (04/10/2026) — tagihan Lunas, domain aktif 1 tahun.'
+  verified: 'Terverifikasi 2026-10-26 oleh pemilik situs', // catatan verifikasi
+  proof: '✅ Terbukti berhasil: <b>jangkungharjo.web.id</b> diklaim <b>Rp0</b> (26/10/2026) pakai kupon ini — domain terdaftar, aktif 1 tahun.'
 };
 /* ===== akhir KONFIG PROMO ===== */
 
