@@ -121,9 +121,9 @@ textarea{width:100%;min-height:104px;border:1.5px solid var(--line-strong);borde
 textarea:focus{outline:none;border-color:var(--accent)}
 textarea::placeholder{color:var(--muted-2)}
 .tlds{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
-.tlds label{font-weight:600;background:var(--card-2);border:1.5px solid var(--line);padding:8px 15px;border-radius:999px;font-size:.9rem;cursor:pointer;transition:all .15s;color:var(--text)}
+.tlds label{display:inline-flex;align-items:center;gap:8px;font-weight:600;background:var(--card-2);border:1.5px solid var(--line);padding:8px 15px;border-radius:999px;font-size:.9rem;cursor:pointer;transition:all .15s;color:var(--text)}
 .tlds label:has(input:checked){background:#16a34a;color:#fff;border-color:transparent;box-shadow:0 10px 30px rgba(22,163,74,.35)}
-.tlds input{-webkit-appearance:none;appearance:none;width:17px;height:17px;border-radius:5px;border:2px solid var(--muted-2);background:transparent;display:inline-grid;place-items:center;vertical-align:-3px;margin-right:6px;cursor:pointer;flex:none}
+.tlds input{-webkit-appearance:none;appearance:none;width:17px;height:17px;border-radius:5px;border:2px solid var(--muted-2);background:transparent;display:inline-grid;place-items:center;vertical-align:middle;margin:0;cursor:pointer;flex:none}
 .tlds input::before{content:"✓";font-size:12px;font-weight:900;line-height:1;color:#fff;transform:scale(0);transition:transform .12s ease}
 .tlds input:checked{background:#fff;border-color:#fff}
 .tlds input:checked::before{color:#16a34a;transform:scale(1)}
@@ -465,12 +465,12 @@ footer .about{color:var(--muted);font-size:.9rem;max-width:320px;margin:12px 0 0
 <script>
 /* ===== KONFIG PROMO — cukup ubah blok ini saat ada kupon/promo baru ===== */
 const PROMO = {
-  coupon: 'OktW-o2IdH',                                   // kode kupon aktif
-  period: '2–4 Okt 2026',                                 // masa berlaku kupon
+  coupon: '30-mTsM-IDH',                                   // kode kupon aktif
+  period: '30 Okt – 1 Nov 2026',                                 // masa berlaku kupon
   tlds: '.my.id / .web.id / .biz.id',                     // TLD yang dicover
   claimUrl: 'https://order.idwebhost.com/domain-gratis', // halaman klaim
-  verified: 'Terverifikasi 2026-10-04 oleh pemilik situs', // catatan verifikasi
-  proof: '✅ Terbukti berhasil: <b>aidika.my.id</b> diklaim <b>Rp0</b> (04/10/2026) — tagihan Lunas, domain aktif 1 tahun.'
+  verified: 'Kode resmi IDwebhost, diumumkan 2026-10-30', // catatan verifikasi
+  proof: '📣 Kupon resmi dari poster IDwebhost (30/10/2026): klaim <b>.my.id / .web.id / .biz.id</b> gratis 1 tahun, stok terbatas. Bukti klaim <b>Rp0</b> diperbarui setelah klaim pertama terdaftar.'
 };
 /* ===== akhir KONFIG PROMO ===== */
 
